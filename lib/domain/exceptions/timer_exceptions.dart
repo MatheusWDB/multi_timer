@@ -15,3 +15,21 @@ class TooManyTimersException implements Exception {
   @override
   String toString() => 'TooManyTimersException: $message';
 }
+
+class TimerNotFoundException implements Exception {
+  final String message;
+
+  const TimerNotFoundException(this.message);
+
+  @override
+  String toString() => 'TimerNotFoundException: $message';
+}
+
+class InvalidTimerStateException implements Exception {
+  final String message;
+
+  const InvalidTimerStateException(this.message);
+
+  @override
+  String toString() => 'InvalidTimerStateException: $message';
+}

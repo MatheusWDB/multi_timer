@@ -18,6 +18,14 @@ class FakeTimerRepository implements TimerRepository {
   }
 
   @override
+  Future<TimerEntity?> getById(int id) async {
+    for (final timer in timers) {
+      if (timer.id == id) return timer;
+    }
+    return null;
+  }
+
+  @override
   Future<TimerEntity> insert(TimerEntity timer) async {
     final inserted = timer.copyWith(id: _nextId++);
     timers.add(inserted);
@@ -25,13 +33,16 @@ class FakeTimerRepository implements TimerRepository {
   }
 
   @override
+  Future<void> update(TimerEntity timer) async {
+    final index = timers.indexWhere((item) => item.id == timer.id);
+    if (index == -1) {
+      throw StateError('Timer ${timer.id} não existe no repositório fake.');
+    }
+    timers[index] = timer;
+  }
+
+  @override
   Future<List<TimerEntity>> getHistoryTimers() => throw UnimplementedError();
-
-  @override
-  Future<TimerEntity?> getById(int id) => throw UnimplementedError();
-
-  @override
-  Future<void> update(TimerEntity timer) => throw UnimplementedError();
 
   @override
   Future<void> delete(int id) => throw UnimplementedError();
