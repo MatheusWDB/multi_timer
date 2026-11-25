@@ -45,7 +45,9 @@ class FakeTimerRepository implements TimerRepository {
   Future<List<TimerEntity>> getHistoryTimers() => throw UnimplementedError();
 
   @override
-  Future<void> delete(int id) => throw UnimplementedError();
+  Future<void> delete(int id) async {
+    timers.removeWhere((timer) => timer.id == id);
+  }
 
   @override
   Future<void> clearHistory() => throw UnimplementedError();
